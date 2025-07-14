@@ -10,7 +10,7 @@ module alu (
 );
     // Opcode definitions
     parameter NOP  = 8'h00, STORE = 8'h01;
-    parameter LOAD  = 8'h02, BUN = 8'h03, BZ = 8'h04, BP = 8'h05, SIZ = 8'h06;
+    parameter LOAD  = 8'h02, BUN = 8'h03, BZ = 8'h04, BP = 8'h05, SII = 8'h06;
     parameter ADD   = 8'h07, SUB   = 8'h08;
     parameter MUL   = 8'h09, DIV   = 8'hA;
     parameter AND   = 8'h0B, OR    = 8'h0C;
