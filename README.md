@@ -1,46 +1,49 @@
 # 32-bit-Custon-ISA-Processor
-This project presents the design and implementation of a 32-bit custom processor developed in Verilog using the Xilinx Vivado design suite. The processor features a custom Instruction Set Architecture (ISA) that supports a wide range of operations, including arithmetic, logic, shift, memory access (load/store), and control flow (branching). The processor executes each instruction by progressing through an instruction cycle comprising four stages: Fetch, Decode, Execute, and Write-Back.
+This project presents the design and implementation of a 32-bit custom processor developed in Verilog using the Xilinx Vivado design suite. The processor features a custom **Instruction Set Architecture (ISA)** that supports a wide range of operations, including arithmetic, logic, shift, memory access (load/store), and control flow (branching). The processor executes each instruction by progressing through an instruction cycle comprising four stages: Fetch, Decode, Execute, and Write-Back.
 
 ## Processor modules:
-1. memory: This module initializes a memory space used to store both instructions and data. The memory consists of 4096 words, with each word being 32 bits wide. It supports read and write operations based on control signals provided during execution.
-2. reg_bank: The register bank contains 16 general-purpose registers, each 32 bits wide. These registers are used for temporarily storing operands, intermediate results, and final outputs of instructions.
-3. ALU: ALU is a combinational circuit used to execute the instruction on the operands stored inside register bank.
-   It supports a total of 18 operations, categorized as follows:
-   a. Arithmetic:
-     i. Addition
-     ii. Subtration
-     iii. Multiplication
-     iv. Division
-     v. Increment
-     vi. Decrement
-   b. Logical:
-     i. Bitwise AND
-     ii. Bitwise OR
-     iii. Bitwise XOR
-     iv. Bitwise NOR
-     v. Bitwise NAND
-     vi. Bitwise NOT
-   c. Shift:
-     i. Right Shift
-     ii. Left Shift
-     iii. Circular Right Shift
-     iv. Circular Left Shift
-     v. Arithmetic Right Shift
-5. processor: This is the top-level module that instantiates all submodules and manages the control signals necessary for instruction execution. It orchestrates the full instruction cycle of the processor architecture.
+1. **memory**: This module initializes a memory space used to store both instructions and data. The memory consists of 4096 words, with each word being 32 bits wide. It supports read and write operations based on control signals provided during execution.
+2. **reg_bank**: The register bank contains 16 general-purpose registers, each 32 bits wide. These registers are used for temporarily storing operands, intermediate results, and final outputs of instructions.
+3. **ALU**  
+The ALU (Arithmetic Logic Unit) is a combinational circuit responsible for executing instructions on operands stored in the register bank. It supports a total of **18 operations**, categorized as follows:
+
+- **Arithmetic Operations**  
+  - Addition  
+  - Subtraction  
+  - Multiplication  
+  - Division  
+  - Increment  
+  - Decrement  
+
+- **Logical Operations**  
+  - Bitwise AND  
+  - Bitwise OR  
+  - Bitwise XOR  
+  - Bitwise NOR  
+  - Bitwise NAND  
+  - Bitwise NOT  
+
+- **Shift Operations**  
+  - Logical Right Shift  
+  - Logical Left Shift  
+  - Circular Right Shift  
+  - Circular Left Shift  
+  - Arithmetic Right Shift  
+4. **processor**: This is the top-level module that instantiates all submodules and manages the control signals necessary for instruction execution. It orchestrates the full instruction cycle of the processor architecture.
 
 ## How instructions are executed?
-Each instruction is 32 bits in length and resides in the memory. Instruction execution begins with the Fetch Cycle, during which the instruction is fetched from memory using the Program Counter (PC). The instruction is then loaded into the Instruction Register (IR).
+Each instruction is 32 bits in length and resides in the memory. Instruction execution begins with the **Fetch Cycle**, during which the instruction is fetched from memory using the **Program Counter** (PC). The instruction is then loaded into the Instruction Register (IR).
 
 The instruction format is as follows:
 1. 8 bits for the opcode
 2. 8 bits for the register address
 3. 16 bits for the data or memory address
    
-The ALU operations define only register address, 8 bits each to define on which register instruction is performed and in which register to store the result. 
+The **ALU operations** define only register address, 8 bits each to define on which register instruction is performed and in which register to store the result. 
 
-The Decode Cycle interprets the fetched instruction by decoding the opcode and determining the required operation. Corresponding control signals are then activated based on the instruction type.
+The **Decode Cycle** interprets the fetched instruction by decoding the opcode and determining the required operation. Corresponding control signals are then activated based on the instruction type.
 
-The Execute and Write Cycle performs the operation specified in the instruction:
+The **Execute Cycle** and **Write Cycle** performs the operation specified in the instruction:
 1. For arithmetic and logical instructions, operands are read from the register bank and processed by the ALU.
 2. For branch instructions, the processor evaluates the branching condition and updates the PC accordingly.
 3. For memory operations, the relevant memory address is accessed to read from or write to.
